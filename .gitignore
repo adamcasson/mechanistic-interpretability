@@ -127,3 +127,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Pytorch/Lightning
+*.ckpt
+hparams.yaml
+
+# Tensorboard
+*.tfevents.*
+
+# Hydra
+.hydra
+
+# VSCode
+.vscode

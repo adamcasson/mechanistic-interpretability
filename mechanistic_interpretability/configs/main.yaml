@@ -1,0 +1,11 @@
+defaults:
+  - task: ???
+  - _self_
+
+hydra:
+  job:
+    env_set:
+      HYDRA_FULL_ERROR: '1'
+  output_subdir: null
+  run:
+    dir: .

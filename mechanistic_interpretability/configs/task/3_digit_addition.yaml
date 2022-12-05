@@ -1,0 +1,45 @@
+datamodule:
+  _target_: mechanistic_interpretability.data.digit_addition.DigitAdditionDataModule
+  n_digit: 3
+  frac_train: 0.995
+  reverse_sum: false
+  seed: 0
+  train_batch_size: 8192
+  val_batch_size: 8192
+model:
+  _target_: mechanistic_interpretability.systems.digit_addition.DigitAddition
+  model:
+    _target_: mechanistic_interpretability.models.transformer.Transformer
+    n_layers: 1
+    d_vocab: 10
+    d_model: 256
+    d_mlp: 1024
+    n_heads: 4
+    d_head: 64
+    act_type: relu
+    n_ctx: 9
+  optimizer_partial:
+    _partial_: true
+    _target_: torch.optim.AdamW
+    lr: 0.001
+    weight_decay: 0.5
+    betas:
+      - 0.9
+      - 0.98
+trainer:
+  _target_: pytorch_lightning.Trainer
+  accelerator: gpu
+  devices: 1
+  enable_checkpointing: true
+  logger:
+    _target_: pytorch_lightning.loggers.TensorBoardLogger
+    save_dir: runs/
+  log_every_n_steps: 5
+  max_epochs: 50000
+  enable_progress_bar: true
+  val_check_interval: 5
+  # callbacks:
+  #   - _target_: pytorch_lightning.callbacks.ModelCheckpoint
+  #     dirpath: ckpt/pytorch/3_digit/
+  #     save_top_k: -1
+  #     save_on_train_epoch_end: false

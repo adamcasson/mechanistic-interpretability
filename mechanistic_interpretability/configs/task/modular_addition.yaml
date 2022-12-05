@@ -1,0 +1,43 @@
+datamodule:
+  _target_: mechanistic_interpretability.data.modular_addition.ModularAdditionDataModule
+  p: 113
+  frac_train: 0.3
+  full_batch: true
+  seed: 0
+model:
+  _target_: mechanistic_interpretability.systems.autoregression.AutoregressiveDecoderOnly
+  model:
+    _target_: mechanistic_interpretability.models.transformer.Transformer
+    n_layers: 1
+    d_vocab: 114
+    d_model: 128
+    d_mlp: 512
+    n_heads: 4
+    d_head: 32
+    act_type: gelu
+    n_ctx: 3
+  optimizer_partial:
+    _partial_: true
+    _target_: torch.optim.AdamW
+    lr: 0.001
+    weight_decay: 1.0
+    betas:
+      - 0.9
+      - 0.98
+  lr_scheduler_partial:
+    _partial_: true
+    _target_: torch.optim.lr_scheduler.LambdaLR
+    lr_lambda:
+      _partial_: true
+      _target_: mechanistic_interpretability.utils.lr_lambda
+trainer:
+  _target_: pytorch_lightning.Trainer
+  accelerator: gpu
+  devices: 1
+  enable_checkpointing: false
+  logger:
+    _target_: pytorch_lightning.loggers.TensorBoardLogger
+    save_dir: runs/
+  log_every_n_steps: 1
+  max_epochs: 50000
+  enable_progress_bar: true
