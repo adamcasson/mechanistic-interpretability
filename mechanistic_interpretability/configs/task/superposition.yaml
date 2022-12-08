@@ -1,0 +1,33 @@
+datamodule:
+  _target_: mechanistic_interpretability.data.superposition.SuperpositionDataModule
+  n_instances: 10
+  n_features: 5
+  feature_probability:
+    _target_: mechanistic_interpretability.data.superposition.feature_frequency_sweep
+    n_instances: ${..n_instances}
+  importance:
+    _target_: mechanistic_interpretability.data.superposition.exponential_importance
+    n_features: ${..n_features}
+  batch_size: 1024
+model:
+  _target_: mechanistic_interpretability.systems.superposition.Superposition
+  model:
+    _target_: mechanistic_interpretability.models.superposition.ReluOutputModel
+    n_instances: 10
+    n_features: 5
+    n_hidden: 2
+  optimizer_partial:
+    _partial_: true
+    _target_: torch.optim.AdamW
+    lr: 0.001
+trainer:
+  _target_: pytorch_lightning.Trainer
+  accelerator: gpu
+  devices: 1
+  enable_checkpointing: false
+  logger:
+    _target_: pytorch_lightning.loggers.TensorBoardLogger
+    save_dir: runs/
+  log_every_n_steps: 10
+  max_epochs: 50000
+  enable_progress_bar: true

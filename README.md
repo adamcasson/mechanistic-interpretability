@@ -72,6 +72,17 @@ There is also the option to encode the sum in reverse order (the default behavio
 $ python main.py task=3_digit_addition datamodule.reverse_sum=true
 ```
 
+### Superposition
+Implementation of the `Toy Models of Superposition` [6] where a small ReLU network is trained to compress and then reconstruct synthetic data in order to investigate how features are represented when there are less dimensions than features.
+
+The training to create the intro figure of the paper can be invoked from the command line with:
+```
+$ python main.py task=superposition
+```
+<img src=assets/superposition-intro.png width="1500">
+
+(NOTE: this command does not automatically generate the plot. I used a checkpoint to generate it along with the plotting source code [7] in a notebook.)
+
 ## References
 
 [1] https://colab.research.google.com/drive/1F6_1_cWXE5M7WocUcpQWp3v8z4b1jL20#scrollTo=BhhJmRH8IIvy
@@ -83,3 +94,7 @@ $ python main.py task=3_digit_addition datamodule.reverse_sum=true
 [4] https://hydra.cc/
 
 [5] https://github.com/karpathy/minGPT
+
+[6] https://transformer-circuits.pub/2022/toy_model/index.html
+
+[7] https://github.com/anthropics/toy-models-of-superposition
