@@ -1,6 +1,6 @@
 # mechanistic-interpretability
 
-`mechanistic-interpretability` is a toolbox for faciliting mechanistic interpretability (MI) research on small models and toy tasks. The repo currently reimplements some of the work done by Neel Nanda's `A Mechanistic Interpretability Analysis of Grokking` Colab notebook [1].
+`mechanistic-interpretability` is a toolbox for faciliting mechanistic interpretability (MI) research on small models and toy tasks.
 
 
 The goal intially of this project is to provide an easy-to-use framework of models, toy tasks, and tools for training, evaluating, and analyzing models through the lens of mechanistic interpretability.
@@ -13,7 +13,7 @@ The repo also utilizes Hydra [4] for configuration of experiments, but it can be
 
 ## Get started
 ### Modular Addition
-Modular addition is the main task studied in [1]. It's a toy task where we train an autoregressive decoder-only transformer to learn:
+Modular addition is the main task studied in "A Mechanistic Interpretability Analysis of Grokking" by Neel Nanda [1]. It's a toy task where we train an autoregressive decoder-only transformer to learn:
 
 `x + y = (x + y) % p`
  
@@ -73,7 +73,7 @@ $ python main.py task=3_digit_addition datamodule.reverse_sum=true
 ```
 
 ### Superposition
-Implementation of the `Toy Models of Superposition` [6] where a small ReLU network is trained to compress and then reconstruct synthetic data in order to investigate how features are represented when there are less dimensions than features.
+There is also support for "Toy Models of Superposition" by Elhage et al. [6] where a small ReLU network is trained to compress and then reconstruct synthetic data in order to investigate how features are represented when there are less dimensions than features.
 
 The training to create the intro figure of the paper can be invoked from the command line with:
 ```
